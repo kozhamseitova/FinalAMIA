@@ -22,7 +22,7 @@
             <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Description</th>
             <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Time</th>
             <%
-                if(session.getAttribute("password")!=null){
+                if(session.getAttribute("status")!=null){
             %>
             <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-200">Remove</th>
 
@@ -41,7 +41,7 @@
                 <td class="px-4 py-3">${event.description}</td>
                 <td class="px-4 py-3">${event.time}</td>
                 <%
-                    if(session.getAttribute("password")!=null){
+                    if(session.getAttribute("status")!=null){
                 %>
                 <td class="px-4 py-3"><a id="r" href="<%=request.getContextPath()%>/event?act=remove&id=${event.id}">remove</a></td>
                 <%
@@ -55,7 +55,7 @@
 </div>
 <div class="flex flex-col text-center w-full mb-12">
     <%
-        if(session.getAttribute("password")!=null){
+        if(session.getAttribute("status")!=null){
     %>
     <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Adding</h2>
     <form method="get" action="<%=request.getContextPath()%>/event">

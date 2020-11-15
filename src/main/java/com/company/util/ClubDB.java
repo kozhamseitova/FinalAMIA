@@ -1,16 +1,15 @@
-package com.company.models;
+package com.company.util;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+import com.company.models.Club;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class ClubDB {
+public class ClubDB extends DB {
     Connection connection = null;
     private static ClubDB instance = null;
 
@@ -21,28 +20,17 @@ public class ClubDB {
         return instance;
     }
     private ClubDB(){
-        Context initialContext;
-        try
-        {
-            initialContext = new InitialContext();
-            Context envCtx = (Context)initialContext.lookup("java:comp/env");
-            DataSource ds = (DataSource)envCtx.lookup("jdbc/final");
-            connection = ds.getConnection();
-        }
-        catch (NamingException | SQLException e)
-        {
-            e.printStackTrace();
-        }
+        connection = super.getConnection();
     }
 
-    public ArrayList<Club> getAllClubs()
+    public LinkedList<Club> getAllClubs()
     {
         try
         {
             String sql = "SELECT * FROM clubs";
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
-            ArrayList<Club> clubArrayList = new ArrayList();
+            LinkedList<Club> clubList = new LinkedList<>();
             while (resultSet.next()) {
                 Club clubs = new Club(
                         resultSet.getLong("id"),
@@ -50,9 +38,9 @@ public class ClubDB {
                         resultSet.getString("img"),
                         resultSet.getString("description")
                 );
-                clubArrayList.add(clubs);
+                clubList.add(clubs);
             }
-            return clubArrayList;
+            return clubList;
         }catch (SQLException sqlException){
             sqlException.printStackTrace();
         }

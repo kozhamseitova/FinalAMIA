@@ -1,10 +1,8 @@
 package com.company.сontrollers;
 
 
-import com.company.models.Club;
-import com.company.models.ClubDB;
 import com.company.models.Event;
-import com.company.models.EventDB;
+import com.company.util.EventDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @WebServlet(name = "Events")
@@ -38,7 +38,7 @@ public class Events extends HttpServlet {
 
 
                 if(eventDB.addEvents(event)){
-                    List<Event> events = eventDB.getAllEvents();
+                    ArrayList<Event> events = eventDB.getAllEvents();
                     request.setAttribute("events", events);
                     request.getRequestDispatcher("jsp/events.jsp").forward(request,response);
                 }else{

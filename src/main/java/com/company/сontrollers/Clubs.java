@@ -2,7 +2,7 @@ package com.company.сontrollers;
 
 
 import com.company.models.Club;
-import com.company.models.ClubDB;
+import com.company.util.ClubDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 @WebServlet(name = "Servlet1")
 public class Clubs extends HttpServlet {
@@ -19,6 +21,8 @@ public class Clubs extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ClubDB clubDB = ClubDB.getInstance();
         PrintWriter writer = response.getWriter();
+        Queue q = new LinkedList<Club>();
+        List<Club> clubs1 = (List) q;
 
         String act = request.getParameter("act");
         switch (act){
@@ -34,7 +38,7 @@ public class Clubs extends HttpServlet {
 
 
                 if(clubDB.addClubs(club)){
-                    List<Club> clubs1 = clubDB.getAllClubs();
+                    clubs1 = clubDB.getAllClubs();
                     request.setAttribute("clubs", clubs1);
                     request.getRequestDispatcher("jsp/clubs.jsp").forward(request,response);
                 }else{
@@ -48,8 +52,8 @@ public class Clubs extends HttpServlet {
                 String description1 = request.getParameter("description");
 
                 clubDB.update(name1, img1, description1);
-                List<Club> clubs1 = clubDB.getAllClubs();
-                request.setAttribute("clubs", clubs1);
+                List<Club> clubs3 = clubDB.getAllClubs();
+                request.setAttribute("clubs", clubs3);
                 request.getRequestDispatcher("jsp/clubs.jsp").forward(request,response);
 
                 break;

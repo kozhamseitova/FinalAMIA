@@ -1,7 +1,7 @@
 package com.company.сontrollers;
 
 import com.company.models.New;
-import com.company.models.NewDB;
+import com.company.util.NewDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

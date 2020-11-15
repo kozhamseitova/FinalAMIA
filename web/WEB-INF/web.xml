@@ -29,7 +29,22 @@
         <servlet-name>News</servlet-name>
         <url-pattern>/new</url-pattern>
     </servlet-mapping>
-
+    <servlet>
+        <servlet-name>studentSearchServlet</servlet-name>
+        <servlet-class>com.company.сontrollers.StudentSearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>studentSearchServlet</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LogOut</servlet-name>
+        <servlet-class>com.company.сontrollers.LogOut</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogOut</servlet-name>
+        <url-pattern>/logOut</url-pattern>
+    </servlet-mapping>
     <resource-ref>
         <description>JDBC connection</description>
         <res-ref-name>jdbc/final</res-ref-name>

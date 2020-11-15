@@ -1,4 +1,6 @@
-package com.company.models;
+package com.company.util;
+
+import com.company.models.Event;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -10,64 +12,53 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class NewDB {
+public class EventDB extends DB{
     Connection connection = null;
-    private static NewDB instance = null;
+    private static EventDB instance = null;
 
-    public static NewDB getInstance(){
+    public static EventDB getInstance(){
         if(instance == null){
-            instance = new NewDB();
+            instance = new EventDB();
         }
         return instance;
     }
-    private NewDB(){
-        Context initialContext;
-        try
-        {
-            initialContext = new InitialContext();
-            Context envCtx = (Context)initialContext.lookup("java:comp/env");
-            DataSource ds = (DataSource)envCtx.lookup("jdbc/final");
-            connection = ds.getConnection();
-        }
-        catch (NamingException | SQLException e)
-        {
-            e.printStackTrace();
-        }
+    private EventDB(){
+        connection = super.getConnection();
     }
 
-    public ArrayList<New> getAllNews()
+    public ArrayList<Event> getAllEvents()
     {
         try
         {
-            String sql = "SELECT * FROM news";
+            String sql = "SELECT * FROM events";
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
-            ArrayList<New> news = new ArrayList();
+            ArrayList<Event> events = new ArrayList();
             while (resultSet.next()) {
-                New new1 = new New(
+                Event event = new Event(
                         resultSet.getLong("id"),
                         resultSet.getString("title"),
                         resultSet.getString("description"),
                         resultSet.getString("time")
                 );
-                news.add(new1);
+                events.add(event);
             }
-            return news;
+            return events;
         }catch (SQLException sqlException){
             sqlException.printStackTrace();
         }
         return null;
     }
 
-    public boolean addNews(New new1) {
+    public boolean addEvents(Event event) {
         try {
-            String sql = "INSERT INTO news(id, title, description, time) " +
+            String sql = "INSERT INTO events(id, title, description, time) " +
                     "VALUES(?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setLong(1, new1.getId());
-            stmt.setString(2, new1.getTitle());
-            stmt.setString(3, new1.getDescription());
-            stmt.setString(4, new1.getTime());
+            stmt.setLong(1, event.getId());
+            stmt.setString(2, event.getTitle());
+            stmt.setString(3, event.getDescription());
+            stmt.setString(4, event.getTime());
             stmt.execute();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
@@ -80,7 +71,7 @@ public class NewDB {
     {
         try
         {
-            PreparedStatement preparedStatement = connection.prepareStatement("update news set title=?, description=?, time=? where id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("update events set title=?, description=?, time=? where id=?");
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, description);
             preparedStatement.setString(3, time);
@@ -96,7 +87,7 @@ public class NewDB {
     public void remove(long id){
         try
         {
-            PreparedStatement preparedStatement = connection.prepareStatement("delete from news where id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from events where id = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         }
