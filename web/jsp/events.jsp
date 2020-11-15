@@ -11,8 +11,11 @@
 <head>
     <title>Title</title>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/jsp/style/h.css">
 </head>
 <body>
+<%@include file="header.jsp"%>
+
 <div class="lg:w-2/3 w-full mx-auto overflow-auto">
     <table class="table-auto w-full text-left whitespace-no-wrap">
         <thead>

@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  <%response.sendRedirect(request.getContextPath() + "/jsp/clubs.jsp");%>
+  <%response.sendRedirect(request.getContextPath() + "/jsp/main.jsp");%>
   </body>
 </html>

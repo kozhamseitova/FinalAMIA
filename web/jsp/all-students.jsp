@@ -5,8 +5,11 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/jsp/style/h.css">
+
 </head>
 <body>
+<%@include file="header.jsp"%>
 <%
     List<Major> majors = (List<Major>) request.getAttribute("majors");
     List<Group> groups = (List<Group>) request.getAttribute("groups");

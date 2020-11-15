@@ -11,8 +11,12 @@
 <head>
     <title>Title</title>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/jsp/style/h.css">
+
 </head>
 <body>
+<%@include file="header.jsp"%>
+
 <%
     List<Student> students = (List<Student>) request.getAttribute("students");
 %>
